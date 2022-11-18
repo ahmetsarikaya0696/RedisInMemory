@@ -9,6 +9,9 @@ namespace InMemory.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            // AddMemoryCache
+            builder.Services.AddMemoryCache();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

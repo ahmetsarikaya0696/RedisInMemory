@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Show";
+    InMemoryApp.Web.Models.Product p = ViewBag.Product as InMemoryApp.Web.Models.Product;
+}
+
+<h1>Show</h1>
+
+<div>@ViewBag.Time</div>
+<hr />
+<div>@ViewBag.Callback</div>
+<hr />
+<div>Id:@p.Id Name:@p.Name Price:@p.Price</div>
