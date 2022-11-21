@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "Show";
+    string name = ViewBag.Name;
+}
+
+<h1>Show</h1>
+
+@if (!string.IsNullOrEmpty(name))
+{
+    <p>ViewBag.Name @(ViewBag.Name)</p>
+}
+else
+{
+    <p>No cached data found!</p>
+}
+
+
