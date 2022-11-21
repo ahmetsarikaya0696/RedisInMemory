@@ -1,4 +1,4 @@
-namespace InMemory.Web.Models
+namespace RedisExchangeAPI.Web.Models
 {
     public class ErrorViewModel
     {
