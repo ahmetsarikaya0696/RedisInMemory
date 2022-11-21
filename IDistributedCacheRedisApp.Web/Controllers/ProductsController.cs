@@ -59,5 +59,28 @@ namespace IDistributedCacheRedisApp.Web.Controllers
             await _distributedCache.RemoveAsync("product:1");
             return View();
         }
+
+        public async Task<IActionResult> ImageCache()
+        {
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/togg.jpg");
+            byte[] imageByte = System.IO.File.ReadAllBytes(path);
+
+            await _distributedCache.SetAsync("img:1", imageByte);
+
+            return View();
+        }
+
+        public async Task<IActionResult> ImageUrl()
+        {
+            try
+            {
+                byte[] imageByte = await _distributedCache.GetAsync("img:1");
+                return File(imageByte, "image/jpg");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction(nameof(ImageCache));
+            }
+        }
     }
 }
