@@ -1,14 +1,14 @@
 ﻿
 @{
     ViewData["Title"] = "Show";
-    string name = ViewBag.Name;
+    Product product = ViewBag.Product as Product;
 }
 
 <h1>Show</h1>
 
-@if (!string.IsNullOrEmpty(name))
+@if (product != null)
 {
-    <p>ViewBag.Name @(ViewBag.Name)</p>
+    <p>Id:@product.Id Name:@product.Name Price:@product.Price</p>
 }
 else
 {
