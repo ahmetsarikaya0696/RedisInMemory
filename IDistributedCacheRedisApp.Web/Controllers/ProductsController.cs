@@ -1,6 +1,7 @@
 ﻿using IDistributedCacheRedisApp.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
+using System.Text;
 using System.Text.Json;
 
 namespace IDistributedCacheRedisApp.Web.Controllers
@@ -21,14 +22,25 @@ namespace IDistributedCacheRedisApp.Web.Controllers
 
             Product product = new() { Id = 1, Name = "Kalem 1", Price = 200 };
             string jsonProduct = JsonSerializer.Serialize(product);
-            await _distributedCache.SetStringAsync("product:1", jsonProduct, cacheEntryOptions);
+
+            #region Byte Array'ine dönüştürme yöntemi
+            Byte[] byteProduct = Encoding.UTF8.GetBytes(jsonProduct);
+            await _distributedCache.SetAsync("product:1", byteProduct);
+            #endregion
+
+
+            //await _distributedCache.SetStringAsync("product:1", jsonProduct, cacheEntryOptions);
 
             return View();
         }
 
         public async Task<IActionResult> Show()
         {
-            string jsonProduct = await _distributedCache.GetStringAsync("product:1");
+            //string jsonProduct = await _distributedCache.GetStringAsync("product:1");
+            #region Byte Array olarak alma
+            byte[] byteProduct = await _distributedCache.GetAsync("product:1");
+            string jsonProduct = Encoding.UTF8.GetString(byteProduct);
+            #endregion
             try
             {
                 Product product = JsonSerializer.Deserialize<Product>(jsonProduct);
