@@ -1,0 +1,36 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "Index";
+    List<string> nameList = ViewBag.NameList;
+}
+
+<h1>Index</h1>
+
+<form asp-controller="ListType" asp-action="Add" method="post" enctype="application/x-www-form-urlencoded">
+    <input type="text" name="name" value="" />
+    <input type="submit" name="submit" value="submit" />
+</form>
+<hr />
+
+<div class="d-flex justify-content-between">
+    <a asp-controller="ListType" asp-action="RemoveFirst">Remove First</a>
+    <a asp-controller="ListType" asp-action="RemoveLast">Remove Last</a>
+</div>
+<div>
+    @if (Model.Count > 0)
+    {
+        <ul>
+            @foreach (string name in Model)
+            {
+                <li class="d-flex justify-content-between">
+                    <span>@name</span>
+                    <a asp-controller="ListType" asp-action="Remove" asp-route-name="@name">Remove</a>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>List is empty!</p>
+    }
+</div>
