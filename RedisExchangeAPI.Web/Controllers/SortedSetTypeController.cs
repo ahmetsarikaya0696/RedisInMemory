@@ -3,14 +3,12 @@ using StackExchange.Redis;
 
 namespace RedisExchangeAPI.Web.Controllers
 {
-    public class SortedSetTypeController : Controller
+    public class SortedSetTypeController : BaseController
     {
-        private readonly IDatabase _redisDb;
         private readonly string key = "sortedSetTypeNames";
 
-        public SortedSetTypeController(IDatabase redisDb)
+        public SortedSetTypeController(IDatabase redisDb) : base(redisDb)
         {
-            _redisDb = redisDb;
         }
 
         public IActionResult Index()

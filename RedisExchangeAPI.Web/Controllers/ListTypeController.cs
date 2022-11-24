@@ -3,14 +3,11 @@ using StackExchange.Redis;
 
 namespace RedisExchangeAPI.Web.Controllers
 {
-    public class ListTypeController : Controller
+    public class ListTypeController : BaseController
     {
-        private readonly IDatabase _redisDb;
         private readonly string key = "names";
-
-        public ListTypeController(IDatabase redisDb)
+        public ListTypeController(IDatabase redisDb) : base(redisDb)
         {
-            _redisDb = redisDb;
         }
 
         public IActionResult Index()

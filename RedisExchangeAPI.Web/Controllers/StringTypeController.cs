@@ -5,30 +5,30 @@ using StackExchange.Redis;
 
 namespace RedisExchangeAPI.Web.Controllers
 {
-    public class StringTypeController : Controller
+    public class StringTypeController : BaseController
     {
-        private readonly IDatabase _redisDb;
+        private readonly string key = "stringTypeNames";
+        private readonly string count= "stringTypeVisitorCount";
 
-        public StringTypeController(IDatabase redisDb)
+        public StringTypeController(IDatabase redisDb) : base(redisDb)
         {
-            _redisDb = redisDb;
         }
 
         public IActionResult Index()
         {
-            _redisDb.StringSet("name", "ahmet sarikaya");
-            _redisDb.StringSet("visitorCount", 100);
+            _redisDb.StringSet(key, "ahmet sarikaya");
+            _redisDb.StringSet(count, 100);
             return View();
         }
 
         public IActionResult Show()
         {
-            //_redisDb.StringIncrement("visitorCount", 1);
-            _redisDb.StringDecrement("visitorCount", 1);
+            //_redisDb.StringIncrement(count, 1);
+            _redisDb.StringDecrement(count, 1);
 
-            //var cachedName = _redisDb.StringGet("name");
-            //var cachedName = _redisDb.StringGetRange("name", 0, 3);
-            var cachedName = _redisDb.StringLength("name");
+            //var cachedName = _redisDb.StringGet(key);
+            //var cachedName = _redisDb.StringGetRange(key, 0, 3);
+            var cachedName = _redisDb.StringLength(key);
 
             ViewBag.cachedName = cachedName.ToString();
 
